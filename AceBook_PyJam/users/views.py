@@ -97,13 +97,12 @@ def update_profile(req):
     })
 
 
-def deletepost(req, pk):
+def deletepost(req):
     if req.method == 'POST':
         post_id = (int(req.POST.get('item_id')))
         post = Posts.objects.get(id=post_id)
         post.delete()
         return redirect('home')
-        profile = User.objects.get(id=pk)
 
 
 def log_in(req):
