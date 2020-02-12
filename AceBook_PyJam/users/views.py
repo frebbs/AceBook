@@ -84,8 +84,11 @@ def update_profile(req):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            handle_uploaded_file(req.FILES['image'])
-            return redirect('profile')
+            if req.FILES:
+                handle_uploaded_file(req.FILES['image'])
+                return redirect('profile')
+            else:
+                return redirect('profile')
         else:
             pass
     else:

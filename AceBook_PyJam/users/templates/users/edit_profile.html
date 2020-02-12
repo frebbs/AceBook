@@ -2,7 +2,7 @@
 
 {% block content %}
 {% load static %}
-
+          {% csrf_token %}
 <div class="bg-white mt-5 shadow rounded overflow-hidden">
     <div class="px-4 mt-4 pb-4 bg-dark">
         <div class="media align-items-end profile-header">
@@ -15,11 +15,20 @@
     </div>
     <div class="py-4 px-4">
     <h1>Edit Profile Page</h1>
+                  {% csrf_token %}
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {{ user_form.as_p }}
-          {{ profile_form.as_p }}
-          <button type="submit">Save changes</button>
+            <input type="hidden" name="csrfmiddlewaretoken" value="YE6kT5W4GZNdhzd3vHqQvpg8UJT517wIc8vuKUnZhIFIr3YHvEPOByPNzvsWApMt">
+            <label for="id_first_name">First name:</label> <input type="text" name="first_name" value="{{user.first_name}}" maxlength="30" id="id_first_name">
+            <label for="id_last_name">Last name:</label> <input type="text" name="last_name" value="{{user.last_name}}" maxlength="150" id="id_last_name">
+            <label for="id_email">Email address:</label> <input type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email">
+            <label for="id_bio">Bio:</label> <textarea name="bio" cols="40" rows="10" maxlength="500" id="id_bio">{{user.profile.bio}}</textarea>
+            <label for="id_location">Location:</label> <input type="text" name="location" value="{{user.profile.location}}" maxlength="30" id="id_location">
+            <label for="id_image">Image:</label> Currently: <a href="{{user.profile.image}}">{{user.profile.image.url}}/a><br>
+            Change:
+            <input type="file" name="image" id="id_image">
+            <label for="id_url">Url:</label> <input type="url" name="url" value="{{user.profile.url}}" maxlength="200" id="id_url"></p>
+            <button type="submit">Save changes</button>
         </form>
     </div>
 </div>
